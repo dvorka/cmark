@@ -85,7 +85,7 @@ endif()
 
 # Disable the PUBLIC declarations when compiling the executable:
 set_target_properties(${PROGRAM} PROPERTIES
-  COMPILE_FLAGS "-DCMARK_STATIC_DEFINE -DCMARKEXTENSIONS_STATIC_DEFINE")
+  COMPILE_FLAGS "-DCMARK_GFM_STATIC_DEFINE -DCMARK_GFM_EXTENSION_STATIC_DEFINE")
 
 # Check integrity of node structure when compiled as debug:
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DCMARK_DEBUG_NODES -DDEBUG")
@@ -126,7 +126,7 @@ endif()
 if (CMARK_STATIC)
   add_library(${STATICLIBRARY} STATIC ${LIBRARY_SOURCES})
   set_target_properties(${STATICLIBRARY} PROPERTIES
-    COMPILE_FLAGS -DCMARK_STATIC_DEFINE
+    COMPILE_FLAGS -DCMARK_GFM_STATIC_DEFINE
     POSITION_INDEPENDENT_CODE ON)
 
   if (MSVC)
@@ -209,7 +209,7 @@ if(MSVC)
   else()
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W4")
   endif()
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /WX /wd4706 /wd4204 /wd4221 /wd4100 /D_CRT_SECURE_NO_WARNINGS")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /WX- /wd4706 /wd4204 /wd4221 /wd4100 /D_CRT_SECURE_NO_WARNINGS")
 elseif(CMAKE_COMPILER_IS_GNUCC OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-unused-parameter -std=c99 -pedantic")
 endif()
