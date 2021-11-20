@@ -60,6 +60,9 @@ pathological = {
     "link openers and emph closers":
                  (("[ a_" * 50000),
                   re.compile("(\[ a_){50000}")),
+    "pattern [ (]( repeated":
+                 (("[ (](" * 80000),
+                  re.compile("(\[ \(\]\(){80000}")),
     "hard link/emph case":
                  ("**x [a*b**c*](d)",
                   re.compile("\\*\\*x <a href=\"d\">a<em>b\\*\\*c</em></a>")),
@@ -84,6 +87,9 @@ pathological = {
     "unclosed links B":
                  ("[a](b" * 30000,
                   re.compile("(\[a\]\(b){30000}")),
+    "tables":
+                 ("aaa\rbbb\n-\v\n" * 30000,
+                  re.compile("^<p>aaa</p>\n<table>\n<thead>\n<tr>\n<th>bbb</th>\n</tr>\n</thead>\n<tbody>\n(<tr>\n<td>aaa</td>\n</tr>\n<tr>\n<td>bbb</td>\n</tr>\n<tr>\n<td>-\x0b</td>\n</tr>\n){29999}</tbody>\n</table>\n$")),
 #    "many references":
 #                 ("".join(map(lambda x: ("[" + str(x) + "]: u\n"), range(1,5000 * 16))) + "[0] " * 5000,
 #                  re.compile("(\[0\] ){4999}")),
@@ -103,7 +109,7 @@ def run_test(inp, regex):
     parser.add_argument('--library-dir', dest='library_dir', nargs='?',
             default=None, help='directory containing dynamic library')
     args = parser.parse_args(sys.argv[1:])
-    cmark = CMark(prog=args.program, library_dir=args.library_dir)
+    cmark = CMark(prog=args.program, library_dir=args.library_dir, extensions="table")
 
     [rc, actual, err] = cmark.to_html(inp)
     if rc != 0:

@@ -1,8 +1,7 @@
 cmark-gfm
 =========
 
-[![Build Status]](https://travis-ci.org/github/cmark-gfm)
-[![Windows Build Status]](https://ci.appveyor.com/project/github/cmark)
+![Actions CI](https://github.com/github/cmark-gfm/actions/workflows/ci.yml/badge.svg)
 
 `cmark-gfm` is an extended version of the C reference implementation of
 [CommonMark], a rationalized version of Markdown syntax with a spec.  This
@@ -66,6 +65,7 @@ There are also libraries that wrap `libcmark` for
 [Perl](https://metacpan.org/release/CommonMark),
 [Python](https://pypi.python.org/pypi/paka.cmark),
 [R](https://cran.r-project.org/package=commonmark),
+[Tcl](https://github.com/apnadkarni/tcl-cmark),
 [Scala](https://github.com/sparsetech/cmark-scala) and
 [Node.js](https://github.com/killa123/node-cmark).
 
@@ -163,14 +163,13 @@ be found in the man pages in the `man` subdirectory.
 Security
 --------
 
-By default, the library will scrub raw HTML and potentially dangerous links
-(`javascript:`, `vbscript:`, `data:`, `file:`). Please note this is the
-_opposite_ of the upstream [`cmark`](https://github.com/CommonMark/cmark)
-library, a change introduced in `cmark-gfm` in version `0.28.3.gfm.18`.
+By default, the library will scrub raw HTML and potentially
+dangerous links (`javascript:`, `vbscript:`, `data:`, `file:`).
 
-To allow these, use the option `CMARK_OPT_UNSAFE` (or `--unsafe` with the
-command line program). If doing so, we recommend you use a HTML sanitizer
-specific to your needs to protect against [XSS
+To allow these, use the option `CMARK_OPT_UNSAFE` (or
+`--unsafe`) with the command line program. If doing so, we
+recommend you use a HTML sanitizer specific to your needs to
+protect against [XSS
 attacks](http://en.wikipedia.org/wiki/Cross-site_scripting).
 
 Contributing
